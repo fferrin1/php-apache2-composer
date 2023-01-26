@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  php-apache2:
+  container_name: php-apache2
+  hostname: php-apache2
+    ports:
+      - "80:80"
+    build: './build/php'
+    volumes:
+      - ./app:/var/www/html
+  mysql:
+  container_name: mysql-db
+  hostname: mysql-db
+    ports:
+      - "33306:3306"
+    build: './build/mysql'
+
+    environment:
+      MYSQL_ROOT_PASSWORD: "password_root_db"
+      MYSQL_DATABASE: "your-database"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - dbData:/var/lib/mysql
+volumes:
+  app:
+  dbData:
